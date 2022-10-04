@@ -1,1 +1,13 @@
-
+import random
+num = random.randrange(0,101)
+Attempts = 0
+while (N != num):
+    N = int(input("Adivinha o número"))
+    if N > num: 
+        print("O número que pensei é Menor")
+    if N < num:
+        print("O número que pensei é Maior")
+    if N == num:
+        print("Acertou")
+    Attempts = Attempts + 1
+print("O número de tentativas foi",int(Attempts))
