@@ -1,0 +1,125 @@
+import random
+
+def Menu():
+    print("(1) Criar Lista")
+    print("(2) Ler Lista")
+    print("(3) Soma")
+    print("(4) Média")
+    print("(5) Maior")
+    print("(6) Menor")
+    print("(7) estaOrdenada por ordem crescente")
+    print("(8) estaOrdenada por ordem decrescente")
+    print("(9) Procura um elemento")
+    print("(0) Sair")
+
+def CriarListaRand(N):
+    listaRand = []
+    i = 0
+    while(i<N):
+        elem = random.randrange(1,101)
+        listaRand.append(elem)
+        i = i + 1
+    return listaRand
+
+def CriarListaUtil(N):
+    listaUtil = []
+    i = 0
+    while(i<N):
+        elem = int(input("Que número deseja inserir?"))
+        listaUtil.append(elem)
+        i = i + 1
+    return listaUtil
+
+def somaLista(lista):
+    soma = 0
+    for num in lista:
+        soma = soma + num
+    return soma
+
+def mediaLista(lista):
+    soma = 0
+    for num in lista:
+        soma = soma + num
+    return soma / len(lista)
+
+def maiorLista(lista):
+    max = lista[0]
+    for num in lista[1:]:
+        if num > max:
+            max = num
+    return max
+
+def menorLista(lista):
+    min = lista[0]
+    for num in lista:
+        if num < min:
+            min = num
+    return min
+
+def ordenadaCrescente(lista):
+    valor = True
+    i = 0
+    while i + 1 < len(lista):
+        if lista[i] > lista[i + 1]:
+            valor = False
+        i = i + 1
+    return valor
+
+def ordenadaDecrescente(lista):
+    valor = True
+    i = 0
+    while i + 1 < len(lista):
+        if lista[i] < lista[i + 1]:
+            valor = False
+        i = i + 1
+    return valor
+
+def procurarLista(lista, elem):
+    if elem in lista: 
+        posicao = lista.index(elem)
+    else:
+        posicao = -1
+    return posicao
+     
+
+Menu()
+opção = int(input("Que opção deseja escolher?"))
+listaVarInt = []
+if opção >= 10:
+    print("Erro, por favor insira um número presente no Menu")
+
+while (opção != 0):
+    if opção == 1:
+        listaVarInt.clear()
+        listaVarInt = CriarListaRand(int(input("Qual o tamanho da lista?")))
+    if opção == 2:
+        listaVarInt.clear()
+        listaVarInt = CriarListaUtil(int(input("Qual o tamanho da lista?")))
+    if opção == 3:
+        print("A soma dos elementos da lista é",somaLista(listaVarInt))
+    if opção == 4:
+        print("A média dos elementos da lista é",mediaLista(listaVarInt))
+    if opção == 5:
+        print("O maior elemento da lista é",maiorLista(listaVarInt))
+    if opção == 6:
+        print("O menor elemento da lista é",menorLista(listaVarInt))
+    if opção == 7:
+        if ordenadaCrescente(listaVarInt) == True:
+            print("Sim")
+        else:
+            print("Não")
+    if opção == 8:
+        if ordenadaDecrescente(listaVarInt) == True:
+            print("Sim")
+        else:
+            print("Não")
+    if opção == 9:
+        if procurarLista == -1:
+            print("O elemento que procura não se econtra na lista")
+        else:
+            print("O elemento que procura está no índice",procurarLista(listaVarInt,int(input("Que número deseja procurar?"))))
+        
+    opção = int(input("Que opção deseja escolher?"))
+    
+if opção == 0:
+    print("Saiu do programa. A sua lista é",listaVarInt)    
