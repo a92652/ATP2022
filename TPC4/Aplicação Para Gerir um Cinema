@@ -1,0 +1,103 @@
+def Menu():
+    print("(1) Ver Lista de Filmes em Exibição")
+    print("(2) Verificar a Disponibilidade de um Determinado Lugar")
+    print("(3) Ver Lugares Vendidos")
+    print("(4) Ver o Número de Lugares Disponíveis nas Salas")
+    print("(5) Adicionar uma Nova Sala ao Cinema")
+    print("(6) Remover Sala sem Lugares Ocupados")
+    print("(0) Terminar")
+
+
+sala1 = (150, [], "Twilight")
+sala2 = (200, [], "Hannibal")
+sala3 = (100, [], "Mamma Mia")
+sala4 = (50, [], "Little Women")
+
+cinema1 = [sala1, sala2, sala3, sala4]
+
+def listar(cinema):
+    for sala in cinema:
+        nlugares, vendidos, filme = sala 
+        print("Filme:", filme, "\n")
+        print("Lugares da sala:", nlugares, "\n")
+    return 
+
+
+def disponível(cinema, título, lugar):
+    disp = False
+    for sala in cinema:
+        nlugares, vendidos, filme = sala
+        if filme == título:
+            if lugar not in vendidos and lugar <= nlugares:
+                disp = True
+    return disp 
+
+
+def vendeBilhete(cinema, título, lugar):
+    for sala in cinema:
+        nlugares, vendidos, filme = sala 
+        if filme == título:
+            if lugar not in vendidos and lugar <= nlugares:
+                vendidos.append(lugar)
+            elif lugar in vendidos:
+                print("O lugar escolhido não está disponível")
+            elif lugar > nlugares:
+                print("O lugar escolhido não existe")
+    return cinema
+
+
+def listarDisponibilidade(cinema):
+    for sala in cinema:
+        nlugares, vendidos, filme = sala 
+        print("Filme:", filme)
+        lugaresdisp = nlugares - len(vendidos)
+        print("Lugares disponíveis:", lugaresdisp)
+    return 
+
+
+def inserirSala(cinema, salaNova): 
+    if salaNova not in cinema:
+        cinema.append(salaNova)
+    return cinema
+
+
+def removeSala(cinema, título):
+    for sala in cinema:
+        nlugares, vendidos, filme = sala 
+        if filme == título:
+            if len(vendidos) == 0:
+                cinema.remove(sala)
+    return cinema
+
+
+Menu()
+print("\n")
+opção = int(input("Que opção deseja escolher?"))
+if opção > 6:
+    print("Erro, por favor insira um número presente no Menu")
+
+while (opção != 0):
+    if opção == 1:
+        listar(cinema1)
+        print("\n")
+    if opção == 2:
+        print(disponível(cinema1, str(input("Que filme pretende escolher?")), int(input("Que lugar pretende verificar?"))))
+        print("\n")
+    if opção == 3:
+        print(vendeBilhete(cinema1, str(input("Que filme quer ver?")), int(input("Que lugar quer comprar?"))))
+        print("\n")
+    if opção == 4:
+        listarDisponibilidade(cinema1)
+        print("\n")
+    if opção == 5:
+        print(inserirSala(cinema1,((int(input("Quantos lugares tem a sala?"))), [], str(input("Que filme pretende exibir na sala?")))))
+        print("\n")
+    if opção == 6:
+        print(removeSala(cinema1, str(input("Que filme pretende remover?"))))
+        print("\n")
+    Menu()
+    print("\n")
+    opção = int(input("Que opção deseja escolher?"))
+
+if opção == 0:
+    print("Terminou o programa. Obrigada por escolher os nossos cinemas!")    
