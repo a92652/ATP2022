@@ -1,0 +1,177 @@
+def Menu():
+    print("(1) Ver Distribuição da Doença por Sexo")
+    print("(2) Ver Distribuição da Doença por Escalão Etário")
+    print("(3) Ver Distribuição da Doença por Nível de Colesterol")
+    print("(0) Terminar")
+
+def lerFicheiro(fnome):
+    file = open(fnome, "r")
+    dadosPopulação = []
+    for linha in file:
+        pessoa = linha.split(",")
+        dadosPopulação.append(pessoa)
+    file.close()
+    return dadosPopulação
+
+ListaDados = lerFicheiro("myheart.csv")
+
+
+def distSexo(lista):
+    distribSexo = {"MD": 0, "MnD": 0, "FD": 0, "FnD": 0}
+    for pessoa in lista:
+        if pessoa[1] == "M":
+            if pessoa[5] == "1\n":
+                distribSexo["MD"] = distribSexo["MD"] + 1
+            else:
+                distribSexo["MnD"] = distribSexo["MnD"] + 1
+        if pessoa[1] == "F":
+            if pessoa[5] == "1\n":
+                distribSexo["FD"] = distribSexo["FD"] + 1
+            else:
+                distribSexo["FnD"] = distribSexo["FnD"] + 1
+    return distribSexo
+
+
+def distIdade(lista):
+    distribIdade = {"30-34": 0, "35-39": 0, "40-44": 0, "45-49": 0, "50-54": 0, "55-59": 0, "60-64": 0, "65-69": 0, "70-74": 0, "75-79": 0}
+    for pessoa in lista:
+        if pessoa[5] == "1\n":
+                if 30 <= int(pessoa[0]) < 35:
+                        distribIdade["30-34"] = distribIdade["30-34"] + 1
+                if 35 <= int(pessoa[0]) < 40:
+                        distribIdade["35-39"] = distribIdade["35-39"] + 1
+                if 40 <= int(pessoa[0]) < 45:
+                        distribIdade["40-44"] = distribIdade["40-44"] + 1
+                if 45 <= int(pessoa[0]) < 50:
+                        distribIdade["45-49"] = distribIdade["45-49"] + 1
+                if 50 <= int(pessoa[0]) < 55:
+                        distribIdade["50-54"] = distribIdade["50-54"] + 1
+                if 55 <= int(pessoa[0]) < 60:
+                        distribIdade["55-59"] = distribIdade["55-59"] + 1
+                if 60 <= int(pessoa[0]) < 65:
+                        distribIdade["60-64"] = distribIdade["60-64"] + 1
+                if 65 <= int(pessoa[0]) < 70:
+                        distribIdade["65-69"] = distribIdade["65-69"] + 1
+                if 70 <= int(pessoa[0]) < 75:
+                        distribIdade["70-74"] = distribIdade["70-74"] + 1
+                if 75 <= int(pessoa[0]) < 80:
+                        distribIdade["75-79"] = distribIdade["75-79"] + 1
+    return distribIdade
+
+
+def distColesterol(lista):
+    distribCol = {"80-89": 0, "90-99": 0, "100-109": 0, "110-119": 0, "120-129": 0, "130-139": 0, "140-149": 0, "150-159": 0, "160-169": 0, "170-179": 0, "180-189": 0, "190-199": 0, "200-209": 0, "210-219": 0, "220-229": 0, "230-239": 0, "240-249": 0, "250-259": 0, "260-269": 0, "270-279": 0, "280-289": 0, "290-299": 0, "300-309": 0, "310-319": 0, "320-329": 0, "330-339": 0, "340-349": 0, "350-359": 0, "360-369": 0, "370-379": 0, "380-389": 0, "390-399": 0, "400-409": 0, "410-419": 0, "450-459": 0, "460-469": 0, "490-499": 0, "510-519": 0, "520-529": 0, "560-569": 0, "600-609": 0 }
+    for pessoa in lista:
+        if pessoa[5] == "1\n":
+                if 80 <= int(pessoa[3]) < 90:
+                    distribCol["80-89"] = distribCol["80-89"] + 1
+                if 90 <= int(pessoa[3]) < 100:
+                    distribCol["90-99"] = distribCol["90-99"] + 1
+                if 100 <= int(pessoa[3]) < 110:
+                    distribCol["100-109"] = distribCol["100-109"] + 1
+                if 110 <= int(pessoa[3]) < 120:
+                    distribCol["110-119"] = distribCol["110-119"] + 1
+                if 120 <= int(pessoa[3]) < 130:
+                    distribCol["120-129"] = distribCol["120-129"] + 1
+                if 130 <= int(pessoa[3]) < 140:
+                    distribCol["130-139"] = distribCol["130-139"] + 1
+                if 140 <= int(pessoa[3]) < 150:
+                    distribCol["140-149"] = distribCol["140-149"] + 1
+                if 150 <= int(pessoa[3]) < 160:
+                    distribCol["150-159"] = distribCol["150-159"] + 1
+                if 160 <= int(pessoa[3]) < 170:
+                    distribCol["160-169"] = distribCol["160-169"] + 1
+                if 170 <= int(pessoa[3]) < 180:
+                    distribCol["170-179"] = distribCol["170-179"] + 1
+                if 180 <= int(pessoa[3]) < 190:
+                    distribCol["180-189"] = distribCol["180-189"] + 1
+                if 190 <= int(pessoa[3]) < 200:
+                    distribCol["190-199"] = distribCol["190-199"] + 1
+                if 200 <= int(pessoa[3]) < 210:
+                    distribCol["200-209"] = distribCol["200-209"] + 1
+                if 210 <= int(pessoa[3]) < 220:
+                    distribCol["210-219"] = distribCol["210-219"] + 1
+                if 220 <= int(pessoa[3]) < 230:
+                    distribCol["220-229"] = distribCol["220-229"] + 1
+                if 230 <= int(pessoa[3]) < 240:
+                    distribCol["230-239"] = distribCol["230-239"] + 1
+                if 240 <= int(pessoa[3]) < 250:
+                    distribCol["240-249"] = distribCol["240-249"] + 1
+                if 250 <= int(pessoa[3]) < 260:
+                    distribCol["250-259"] = distribCol["250-259"] + 1
+                if 260 <= int(pessoa[3]) < 270:
+                    distribCol["260-269"] = distribCol["260-269"] + 1
+                if 270 <= int(pessoa[3]) < 280:
+                    distribCol["270-279"] = distribCol["270-279"] + 1
+                if 280 <= int(pessoa[3]) < 290:
+                    distribCol["280-289"] = distribCol["280-289"] + 1
+                if 290 <= int(pessoa[3]) < 300:
+                    distribCol["290-299"] = distribCol["290-299"] + 1
+                if 300 <= int(pessoa[3]) < 310:
+                    distribCol["300-309"] = distribCol["300-309"] + 1
+                if 310 <= int(pessoa[3]) < 320:
+                    distribCol["310-319"] = distribCol["310-319"] + 1
+                if 320 <= int(pessoa[3]) < 330:
+                    distribCol["320-329"] = distribCol["320-329"] + 1
+                if 330 <= int(pessoa[3]) < 340:
+                    distribCol["330-339"] = distribCol["330-339"] + 1
+                if 340 <= int(pessoa[3]) < 350:
+                    distribCol["340-349"] = distribCol["340-349"] + 1
+                if 350 <= int(pessoa[3]) < 360:
+                    distribCol["350-359"] = distribCol["350-359"] + 1
+                if 360 <= int(pessoa[3]) < 370:
+                    distribCol["360-369"] = distribCol["360-369"] + 1
+                if 370 <= int(pessoa[3]) < 380:
+                    distribCol["370-379"] = distribCol["370-379"] + 1
+                if 380 <= int(pessoa[3]) < 390:
+                    distribCol["380-389"] = distribCol["380-389"] + 1
+                if 390 <= int(pessoa[3]) < 400:
+                    distribCol["390-399"] = distribCol["390-399"] + 1
+                if 400 <= int(pessoa[3]) < 410:
+                    distribCol["400-409"] = distribCol["400-409"] + 1
+                if 410 <= int(pessoa[3]) < 420:
+                    distribCol["410-419"] = distribCol["410-419"] + 1
+                if 450 <= int(pessoa[3]) < 460:
+                    distribCol["450-459"] = distribCol["450-459"] + 1
+                if 460 <= int(pessoa[3]) < 470:
+                    distribCol["460-469"] = distribCol["460-469"] + 1
+                if 490 <= int(pessoa[3]) < 500:
+                    distribCol["490-499"] = distribCol["490-499"] + 1
+                if 510 <= int(pessoa[3]) < 520:
+                    distribCol["510-519"] = distribCol["510-519"] + 1
+                if 520 <= int(pessoa[3]) < 530:
+                    distribCol["520-529"] = distribCol["520-529"] + 1
+                if 560 <= int(pessoa[3]) < 570:
+                    distribCol["560-569"] = distribCol["560-569"] + 1
+                if 600 <= int(pessoa[3]) < 610:
+                    distribCol["600-609"] = distribCol["600-609"] + 1
+    return distribCol
+
+
+def tabela(distribuição):
+    for faixa in distribuição:
+        print(faixa, "|", distribuição[faixa])
+    return
+
+Menu()
+print("\n")
+opção = int(input("Que opção deseja escolher?"))
+if opção > 3:
+    print("Erro, por favor insira um número presente no Menu")
+
+while (opção != 0):
+    if opção == 1:
+        tabela(distSexo(ListaDados))
+        print("\n")
+    if opção == 2:
+        tabela(distIdade(ListaDados))
+        print("\n")
+    if opção == 3:
+        tabela(distColesterol(ListaDados))
+        print("\n")
+    Menu()
+    print("\n")
+    opção = int(input("Que opção deseja escolher?"))
+
+if opção == 0:
+    print("Terminou o programa.")    
