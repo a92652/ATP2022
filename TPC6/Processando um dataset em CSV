@@ -1,0 +1,130 @@
+import csv
+import matplotlib.pyplot as plt
+
+# carregar o data set para uma estrutura de dados pensada:
+
+def leObras(filename):
+    file = open(filename, encoding="UTF8") 
+    file.readline()
+    csv_file = csv.reader(file, delimiter=";")
+
+    lista = []
+    for obra in csv_file:
+        lista.append(tuple(obra))
+    return lista
+
+# número de obras catalogadas no dataset:
+
+def tamanhoObras(obras):
+    return len(obras)
+
+# tabela com o título da obra, a sua descrição, o seu compositor e ano de criação:
+
+def imprime(obras):
+    print(f"| {'Nome':20} | {'Descrição':25} | {'Ano':8} | {'Comp':15} |")
+    for nome, desc, ano, _, comp, *_ in obras:
+        print(f"| {nome[:20]:20} | {desc[:25]:25} | {ano:8} | {comp[:15]:15} |")
+
+# lista de tuplos '(título, ano)' ordenada alfabeticamente por título:
+
+def ordem(tuplo):
+    return tuplo[0] 
+
+def titAno(obras):
+    lista = []
+    for nome, _, ano, *_ in obras:
+        lista.append((nome, ano))
+    lista.sort(key = ordem)
+    return lista
+
+# lista de tuplos '(título, ano)' ordenada crescentemente por ano:
+
+def titAno_2(obras):
+    lista = []
+    for nome, _, ano, *_ in obras:
+        lista.append((nome, ano))
+    lista.sort(key = lambda tuplo: tuplo[1]) 
+    return lista
+    
+# dicionário em que cada ano tem a ele associado a lista de títulos a ele associado:
+
+def titporAno(obras):
+    dici = {}
+    for nome, _, ano, *_ in obras:
+        if ano in dici.keys():
+            dici[ano].append(nome)
+        else:
+            dici[ano] = [nome]
+    return dici
+
+# lista ordenada dos compositores:
+
+def listaCompositores(obras):
+    listaComp = []
+    for _, _, _, _, comp, *_ in obras:
+        if comp not in listaComp:
+            listaComp.append(comp)
+    listaComp.sort()
+    return listaComp
+
+# distribuição das obras por período:
+
+def distPeríodo(obras):
+    dic = {}
+    for _, _, _, período, *_ in obras:
+        if período in dic.keys():
+            dic[período] = dic[período] + 1
+        else:
+            dic[período] = 1
+    return dic 
+
+# distribuição das obras por ano:
+
+def distAno(obras):
+    dicAno = {}
+    for _, _, ano, *_ in obras:
+        if ano in dicAno.keys():
+            dicAno[ano] = dicAno[ano] + 1
+        else:
+            dicAno[ano] = 1
+    return dicAno 
+    
+# distribuição das obras por compositor:
+
+def distComp(obras):
+    dicComp = {}
+    for _, _, _, _, comp, *_ in obras:
+        if comp in dicComp.keys():
+            dicComp[comp] = dicComp[comp] + 1
+        else:
+            dicComp[comp] = 1
+    return dicComp
+    
+# função que recebendo uma distribuição desenha o seu gráfico:
+
+def grafico(distrib):
+    plt.bar(distrib.keys(), distrib.values())
+    plt.xticks([x for x in range(0, len(distrib.keys()))], distrib.keys(), rotation='vertical')
+    plt.xlabel('Categorias')
+    plt.ylabel('Quantidade de Obras')
+    plt.title('Distribuição')
+    plt.show()
+    return
+   
+# estrutura de dados que corresponde a uma lista dos compositores em que cada compositor tem a ele associado uma lista dos títulos das obras que compôs:   
+   
+def obrasPorComp(obras):
+    diciComp = {}
+    for nome, _, _, _, comp, *_ in obras:
+        if comp in diciComp.keys():
+            diciComp[comp].append(nome)
+        else:
+            diciComp[comp] = [nome]
+    return diciComp
+
+# função de visualização para estrutura de dados calculada na alínea anterior:
+
+def visualizar(dici):
+    print(list(dici.items()))
+
+  
