@@ -1,0 +1,121 @@
+import csv
+import matplotlib.pyplot as plt
+
+def Menu():
+    print("(1) Ver Distribuição dos Alunos por Curso")
+    print("(2) Ver Distribuição dos Alunos por Escalão")
+    print("(3) Ver Gráfico da Distribuição por Curso")
+    print("(4) Ver Gráfico da Distribuição por Escalão")
+    print("(5) Ver Tabela da Distribuição por Curso")
+    print("(6) Ver Tabela da Distribuição por Escalão")
+    print("(0) Terminar")
+
+def leFicheiro(filename):
+    file = open(filename, encoding="UTF8")
+    file.readline()
+    csv_file = csv.reader(file, delimiter=",")
+
+    lista = []
+    for aluno in csv_file:
+        lista.append(tuple(aluno))
+    return lista
+
+listaAlunos = leFicheiro("alunos.csv")
+
+def distribCurso(listaAlunos):
+    dicCurso = {}
+    for _, _, curso, *_ in listaAlunos:
+        if curso in dicCurso.keys():
+            dicCurso[curso] = dicCurso[curso] + 1
+        else:
+            dicCurso[curso] = 1
+    return dicCurso
+
+def mediaNotas(listaAlunos):
+    for aluno in listaAlunos:
+        _, _, _, tpc1, tpc2, tpc3, tpc4 = aluno
+        media = (int(tpc1) + int(tpc2) + int(tpc3) + int(tpc4))/4
+        alunoB = list(aluno)
+        alunoB.append(media)
+        tuploAluno = tuple(alunoB)
+        listaAlunos[listaAlunos.index(aluno)] = tuploAluno
+    return listaAlunos
+
+def escalão(listaAlunos):
+    escalões = [(n, n + 3) for n in range(1, 21, 4)]
+    for aluno in listaAlunos:
+        _, _, _, tpc1, tpc2, tpc3, tpc4, media = aluno
+        for escalão in escalões:
+            if media >= escalão[0] and media <= escalão[1]+1:
+                esc = escalão
+                if escalão == (1,4):
+                    esc = "E"
+                elif escalão == (5,8):
+                    esc = "D"
+                elif escalão == (9,12):
+                    esc = "C"
+                elif escalão == (13,16):
+                    esc = "B"
+                else:
+                    esc = "A"
+        alunoB = list(aluno)
+        alunoB.append(esc)
+        tuploAluno = tuple(alunoB)
+        listaAlunos[listaAlunos.index(aluno)] = tuploAluno
+    return listaAlunos
+
+def distribEscalão(listaAlunos):
+    dicEscalão = {}
+    for aluno in listaAlunos:
+        _, _, _, _, _, _, _, media, esc = aluno
+        if esc in dicEscalão.keys():
+            dicEscalão[esc] = dicEscalão[esc] + 1
+        else:
+            dicEscalão[esc] = 1
+    return dicEscalão
+
+def grafico(distrib):
+    plt.plot(distrib.keys(), distrib.values())
+    plt.xlabel('Categorias')
+    plt.ylabel('Número de Alunos')
+    plt.title('Distribuição')
+    plt.show()
+    return
+
+def tabela(distrib):
+    for dic in distrib:
+        print(dic, "|", distrib[dic])
+    return
+
+
+Menu()
+print("\n")
+opção = int(input("Que opção deseja escolher?"))
+if opção > 6:
+    print("Erro, por favor insira um número presente no Menu")
+
+while (opção != 0):
+    if opção == 1:
+        print(distribCurso(listaAlunos))
+        print("\n")
+    if opção == 2:
+        print(distribEscalão(listaAlunos))
+        print("\n")
+    if opção == 3:
+        grafico(distribCurso(listaAlunos))
+        print("\n")
+    if opção == 4:
+        grafico(distribEscalão(listaAlunos))
+        print("\n")
+    if opção == 5:
+        tabela(distribCurso(listaAlunos))
+        print("\n")
+    if opção == 6:
+        tabela(distribEscalão(listaAlunos))
+        print("\n")
+    Menu()
+    print("\n")
+    opção = int(input("Que opção deseja escolher?"))
+
+if opção == 0:
+    print("Terminou o programa.") 
