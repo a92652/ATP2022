@@ -1,0 +1,114 @@
+# 1.a)
+
+def inicDiferente(s1, s2):
+    res = 0
+    s1min = s1.lower()
+    s2min = s2.lower()
+    for carater in s1min:
+        if carater not in s2min:
+            res = res + 1
+    return res
+
+# 1.b)
+
+def acimaMedia(n):
+    res = 0
+    listaNum = []
+    soma = 0
+    for num in range(n):
+        x = int(input("Insira o número " + str(num+1) + " que quer comparar "))
+        listaNum.append(x)
+        soma = soma + x
+    media = soma / n
+    for num in listaNum:
+        if num > media:
+            res = res + 1
+    return res
+    
+# 1.c)    
+
+def merge(l1, l2):
+    listaNova = l1 + l2
+    j = 0
+    while j < len(listaNova):
+        i = 1
+        while i < len(listaNova):
+            if listaNova[i] < listaNova[i - 1]:
+                listaNova[i],listaNova[i-1] = listaNova[i-1],listaNova[i]    
+            i = i + 1    
+        j = j + 1
+    return listaNova
+    
+# 1.d)
+
+def figuais(f1, f2):
+    fich1 = open(f1)
+    fich2 = open(f2)
+    for linha in fich2:
+        if linha in fich1:
+            val = True
+        else:
+            val = False
+    return val
+
+# 2.a)
+
+def atores(cinemateca):
+    listaAtores = []
+    for filme in cinemateca:
+        título, ano, elenco, género = filme
+        for ator in elenco:
+            listaAtores.append(ator)
+    listaAtores.sort()
+    nListaAtores = []
+    [nListaAtores.append(ator) for ator in listaAtores if ator not in nListaAtores ]
+    return nListaAtores
+    
+# 2.b)
+
+def listarPorGenero(cinemateca, genero):
+    listaGenero = []
+    for filme in cinemateca:
+        título, ano, elenco, género = filme
+        for tipo in género:
+            if genero == tipo:
+                listaGenero.append(título)
+    listaGenero.sort()
+    return listaGenero
+    
+# 2.c)
+
+def maiorElenco(cinemateca):
+    tamanhoElenco = 0
+    for filme in cinemateca:
+        título, ano, elenco, tipo = filme
+        if len(elenco) > tamanhoElenco:
+            tamanhoElenco = len(elenco)
+            elencoMaior = título
+    return elencoMaior
+    
+# 2.d)
+
+def filmePorGenero(cinemateca):
+    distGénero = {}
+    for filme in cinemateca:
+        título, ano, elenco, género = filme
+        for tipo in género:
+            if tipo in distGénero.keys():
+                distGénero[tipo] = distGénero[tipo] + 1
+            else:
+                distGénero[tipo] = 1
+    return distGénero
+
+# 2.e)
+
+import matplotlib.pyplot as plt
+
+def grafico(distrib):
+    plt.bar(distrib.keys(), distrib.values())
+    plt.xticks([x for x in range(0, len(distrib.keys()))], distrib.keys(), rotation='horizontal')
+    plt.xlabel('Género')
+    plt.ylabel('Número de Filmes')
+    plt.title('Distribuição de Filmes por Género')
+    plt.show()
+    return
